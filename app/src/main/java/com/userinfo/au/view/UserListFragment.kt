@@ -6,17 +6,30 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.userinfo.au.R
+import com.userinfo.au.viewmodel.UserListViewModel
 import kotlinx.android.synthetic.main.fragment_user_list.*
 
 /**
- * A simple [Fragment] subclass.
+ * User info list fragment
  */
 class UserListFragment : Fragment() {
 
-    val userListAdapter = UserListAdapter()
+    private val userListAdapter = UserListAdapter(arrayListOf())
+
+    private lateinit var viewModel: UserListViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity?.let {
+            viewModel = ViewModelProviders.of(this).get(UserListViewModel::class.java)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +46,28 @@ class UserListFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             adapter = userListAdapter
         }
+
+        activity?.let {
+            viewModel.userList.observe(this, Observer { userList ->
+                userListAdapter.updateUsersList(userList)
+            })
+            viewModel.loading.observe(this, Observer { isLoading ->
+                loading.visibility = if (isLoading) View.VISIBLE else View.GONE
+                if (isLoading) {
+                    loadError.visibility = View.GONE
+                }
+            })
+            viewModel.loadError.observe(this, Observer { isError ->
+                loadError.visibility = if (isError) View.VISIBLE else View.GONE
+            })
+        }
+
+        refreshLayout.setOnRefreshListener {
+            loadError.visibility = View.GONE
+            viewModel.refresh()
+            refreshLayout.isRefreshing = false
+        }
+
     }
 
 
