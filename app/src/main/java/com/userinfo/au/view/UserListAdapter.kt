@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.userinfo.au.R
 import com.userinfo.au.databinding.UserListItemBinding
 import com.userinfo.au.model.User
+import com.userinfo.au.utils.Utils
 
 class UserListAdapter(private val usersList: ArrayList<User>): RecyclerView.Adapter<UserListAdapter.UserListViewHolder>() {
 
@@ -32,7 +33,9 @@ class UserListAdapter(private val usersList: ArrayList<User>): RecyclerView.Adap
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         holder.view.user = usersList[position]
         holder.view.userListLayout.setOnClickListener {
-            it.context.startActivity(Intent(it.context, UserAlbumListActivity::class.java))
+            val intent = Intent(it.context, UserAlbumListActivity::class.java)
+            intent.putExtra(Utils.USER_ID, usersList[position].id)
+            it.context.startActivity(intent)
         }
     }
 
