@@ -3,14 +3,27 @@ package com.userinfo.au.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.userinfo.au.di.ApiModule
+import com.userinfo.au.di.DaggerViewModelComponent
 import com.userinfo.au.model.User
 import com.userinfo.au.network.ApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class UserListViewModel: ViewModel() {
+class UserListViewModel(): ViewModel() {
+
+    /**
+     * This constructor is used for unit testing
+     * @param canInject boolean sets injected variable
+     */
+    constructor(canInject: Boolean) : this() {
+        injected = true
+    }
+
+    private var injected = false
 
     private val _userList by lazy { MutableLiveData<List<User>>() }
     val userList: LiveData<List<User>> get() = _userList
@@ -23,12 +36,25 @@ class UserListViewModel: ViewModel() {
 
     private val disposable = CompositeDisposable()
 
+    @Inject
+    lateinit var apiService: ApiService
+
     init {
         refresh()
         _loading.value = true
     }
 
+    fun inject() {
+        if (!injected) {
+            DaggerViewModelComponent.builder()
+                .apiModule(ApiModule())
+                .build()
+                .inject(this)
+        }
+    }
+
     fun refresh() {
+        inject()
         getUser()
         _loadError.value = false
     }
@@ -38,7 +64,7 @@ class UserListViewModel: ViewModel() {
      */
     fun getUser() {
         disposable.add(
-            ApiService.retrofitService.getUserInfo()
+            apiService.getUsers()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<User>>() {

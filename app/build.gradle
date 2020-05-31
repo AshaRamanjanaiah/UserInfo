@@ -32,6 +32,8 @@ def lifeCycleExtensionVersion = '1.1.1'
 def retrofitVersion = '2.3.0'
 def rxJavaVersion = '2.1.1'
 def glideVersion = '4.10.0'
+def daggerVersion = '2.14.1'
+def mockitoVersion = '2.11.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -55,7 +57,15 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glideVersion"
 
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }

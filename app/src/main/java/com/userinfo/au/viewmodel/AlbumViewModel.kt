@@ -26,6 +26,8 @@ class AlbumViewModel(private val userId: Int): ViewModel() {
 
     private val disposable = CompositeDisposable()
 
+    private val apisService = ApiService()
+
     init {
         refresh()
         _loading.value = true
@@ -42,7 +44,7 @@ class AlbumViewModel(private val userId: Int): ViewModel() {
      */
     fun getAlbum() {
         disposable.add(
-            ApiService.retrofitService.getAlbumInfo()
+            apisService.getAlbums()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<List<Album>>() {
