@@ -26,9 +26,6 @@ class UserListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.let {
-            viewModel = ViewModelProviders.of(this).get(UserListViewModel::class.java)
-        }
     }
 
     override fun onCreateView(
@@ -48,16 +45,18 @@ class UserListFragment : Fragment() {
         }
 
         activity?.let {
-            viewModel.userList.observe(this, Observer { userList ->
+            viewModel = ViewModelProviders.of(this).get(UserListViewModel::class.java)
+
+            viewModel.userList.observe(viewLifecycleOwner, Observer { userList ->
                 userListAdapter.updateUsersList(userList)
             })
-            viewModel.loading.observe(this, Observer { isLoading ->
+            viewModel.loading.observe(viewLifecycleOwner, Observer { isLoading ->
                 loading.visibility = if (isLoading) View.VISIBLE else View.GONE
                 if (isLoading) {
                     loadError.visibility = View.GONE
                 }
             })
-            viewModel.loadError.observe(this, Observer { isError ->
+            viewModel.loadError.observe(viewLifecycleOwner, Observer { isError ->
                 loadError.visibility = if (isError) View.VISIBLE else View.GONE
             })
         }

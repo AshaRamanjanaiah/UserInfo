@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.UserAlbumListActivity"></activity>
+        <activity android:name=".view.AlbumDetailsActivity"></activity>
+        <activity android:name=".view.UserAlbumListActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,4 +5,6 @@
     <string name="name">Name: </string>
     <string name="email">Email: </string>
     <string name="phone">Phone: </string>
+    <string name="album_id">Album ID: %s</string>
+    <string name="photo_id">Photo ID: %s</string>
 </resources>

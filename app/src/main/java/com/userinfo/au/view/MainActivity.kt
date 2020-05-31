@@ -10,10 +10,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val fragmentManager = supportFragmentManager
+        /*val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val fragment = UserListFragment()
         fragmentTransaction.add(R.id.user_list, fragment)
-        fragmentTransaction.commit()
+        fragmentTransaction.commit()*/
     }
 }

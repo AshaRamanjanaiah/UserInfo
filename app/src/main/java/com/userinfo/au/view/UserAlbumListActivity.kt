@@ -44,7 +44,7 @@ class UserAlbumListActivity : AppCompatActivity() {
         })
 
         viewModel.title.observe(this, Observer { title ->
-            album_title.text = title.toString()
+            album_title.text = getString(R.string.album_id, title.toString())
         })
 
         viewModel.loading.observe(this, Observer { isLoading ->
