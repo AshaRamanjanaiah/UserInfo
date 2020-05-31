@@ -19,19 +19,10 @@
             android:layout_marginBottom="@dimen/dimen_16dp"
             tools:context=".view.UserListFragment">
 
-            <TextView
-                android:id="@+id/album_title"
-                style="@style/AppTitle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="@dimen/dimen_16dp"
-                android:layout_marginTop="@dimen/dimen_16dp"
-                android:layout_marginEnd="@dimen/dimen_16dp"
-                android:gravity="center"
-                android:text="Testing"
+            <include layout="@layout/toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_album_list"
@@ -40,7 +31,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/album_title" />
+                app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
             <TextView
                 android:id="@+id/loadError"

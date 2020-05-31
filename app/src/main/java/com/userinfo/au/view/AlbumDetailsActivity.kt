@@ -7,6 +7,7 @@ import com.userinfo.au.R
 import com.userinfo.au.databinding.ActivityAlbumDetailsBinding
 import com.userinfo.au.model.Album
 import com.userinfo.au.utils.Utils
+import kotlinx.android.synthetic.main.toolbar.*
 
 class AlbumDetailsActivity : AppCompatActivity() {
 
@@ -19,5 +20,10 @@ class AlbumDetailsActivity : AppCompatActivity() {
             R.layout.activity_album_details)
 
         binding.album = album
+
+        toolbar_title.text = getString(R.string.album_id, album.albumId.toString())
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

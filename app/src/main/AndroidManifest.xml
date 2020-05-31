@@ -15,8 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.AlbumDetailsActivity"></activity>
-        <activity android:name=".view.UserAlbumListActivity" />
+        <activity android:name=".view.AlbumDetailsActivity"
+            android:parentActivityName=".view.UserAlbumListActivity"/>
+        <activity android:name=".view.UserAlbumListActivity"
+            android:parentActivityName=".view.MainActivity" android:launchMode="singleTop"/>
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_album_list.loadError
 import kotlinx.android.synthetic.main.fragment_album_list.loading
 import kotlinx.android.synthetic.main.fragment_album_list.rv_album_list
 import kotlinx.android.synthetic.main.fragment_user_list.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 
 class UserAlbumListActivity : AppCompatActivity() {
@@ -28,6 +29,10 @@ class UserAlbumListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_album_list)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val userId = intent.getIntExtra(Utils.USER_ID, 0)
 
@@ -44,7 +49,7 @@ class UserAlbumListActivity : AppCompatActivity() {
         })
 
         viewModel.title.observe(this, Observer { title ->
-            album_title.text = getString(R.string.album_id, title.toString())
+            toolbar_title.text = getString(R.string.album_id, title.toString())
         })
 
         viewModel.loading.observe(this, Observer { isLoading ->
