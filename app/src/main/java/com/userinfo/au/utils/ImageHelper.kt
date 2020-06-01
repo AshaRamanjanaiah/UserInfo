@@ -4,8 +4,7 @@ import android.content.Context
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.squareup.picasso.Picasso
 import com.userinfo.au.R
 
 /**
@@ -26,12 +25,10 @@ fun getProgressDrawable(context: Context): CircularProgressDrawable {
  * @param Circular progress drawable
  */
 fun ImageView.loadImage(url: String?, progressDrawable: CircularProgressDrawable) {
-    val options = RequestOptions()
-        .placeholder(progressDrawable)
-        .error(R.mipmap.ic_launcher)
-    Glide.with(context)
-        .setDefaultRequestOptions(options)
+    Picasso.get()
         .load(url)
+        .placeholder(R.mipmap.ic_launcher)
+        .error(R.mipmap.ic_launcher)
         .into(this)
 }
 
